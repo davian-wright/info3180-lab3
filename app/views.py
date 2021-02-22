@@ -40,8 +40,14 @@ def contact():
             subject = form.subject.data
             message = form.message.data
 
+
+            msg = Message(subject=subject, sender=(name,
+            email),recipients=["to@example.com"])
+            msg.body = message
+            mail.send(msg)
             flash('You have successfully filled out the form', 'success')
-        return render_template('confirm.html', name=name, email=email)
+            return redirect(url_for('home'))
+        return render_template('home.html')
 
         flash_errors(form)
     return render_template('contact.html', form=form)
